@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Projects" EntityType="Model.Store.Projects" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Galleries" EntityType="Model.Store.Galleries" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GalleryPhotoes" EntityType="Model.Store.GalleryPhotoes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Statistics" EntityType="Model.Store.Statistics" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ProjectGallery" Association="Model.Store.ProjectGallery">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="Gallery" EntitySet="Galleries" />
+    </AssociationSet>
+    <AssociationSet Name="GalleryGalleryPhoto" Association="Model.Store.GalleryGalleryPhoto">
+      <End Role="Gallery" EntitySet="Galleries" />
+      <End Role="GalleryPhoto" EntitySet="GalleryPhotoes" />
+    </AssociationSet>
+    <AssociationSet Name="StatisticsGallery" Association="Model.Store.StatisticsGallery">
+      <End Role="Statistics" EntitySet="Statistics" />
+      <End Role="Gallery" EntitySet="Galleries" />
+    </AssociationSet>
+    <AssociationSet Name="GalleryGalleryPhoto1" Association="Model.Store.GalleryGalleryPhoto1">
+      <End Role="Gallery" EntitySet="Galleries" />
+      <End Role="GalleryPhoto" EntitySet="GalleryPhotoes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AddDate" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Galleries">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="AddDate" Type="datetime" Nullable="false" />
+    <Property Name="Statistic_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GalleryPhotoes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="GalleryId" Type="int" Nullable="false" />
+    <Property Name="AddDate" Type="datetime" Nullable="false" />
+    <Property Name="Gallery_1_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Statistics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AboutUs" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Theme" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="FaceBookProfile" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="GooglePlusProfile" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LinkedInProfile" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="TwitterProfile" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="OfficeAddress" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <Association Name="ProjectGallery">
+    <End Role="Project" Type="Model.Store.Projects" Multiplicity="1" />
+    <End Role="Gallery" Type="Model.Store.Galleries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Gallery">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GalleryGalleryPhoto">
+    <End Role="Gallery" Type="Model.Store.Galleries" Multiplicity="1" />
+    <End Role="GalleryPhoto" Type="Model.Store.GalleryPhotoes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gallery">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GalleryPhoto">
+        <PropertyRef Name="GalleryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StatisticsGallery">
+    <End Role="Statistics" Type="Model.Store.Statistics" Multiplicity="1" />
+    <End Role="Gallery" Type="Model.Store.Galleries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Statistics">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Gallery">
+        <PropertyRef Name="Statistic_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GalleryGalleryPhoto1">
+    <End Role="Gallery" Type="Model.Store.Galleries" Multiplicity="1" />
+    <End Role="GalleryPhoto" Type="Model.Store.GalleryPhotoes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gallery">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GalleryPhoto">
+        <PropertyRef Name="Gallery_1_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Projects" EntityType="Model.Project" />
+          <EntitySet Name="Galleries" EntityType="Model.Gallery" />
+          <AssociationSet Name="ProjectGallery" Association="Model.ProjectGallery">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Gallery" EntitySet="Galleries" />
+          </AssociationSet>
+          <EntitySet Name="GalleryPhotoes" EntityType="Model.GalleryPhoto" />
+          <AssociationSet Name="GalleryGalleryPhoto" Association="Model.GalleryGalleryPhoto">
+            <End Role="Gallery" EntitySet="Galleries" />
+            <End Role="GalleryPhoto" EntitySet="GalleryPhotoes" />
+          </AssociationSet>
+          <EntitySet Name="Statistics" EntityType="Model.Statistics" />
+          <AssociationSet Name="StatisticsGallery" Association="Model.StatisticsGallery">
+            <End Role="Statistics" EntitySet="Statistics" />
+            <End Role="Gallery" EntitySet="Galleries" />
+          </AssociationSet>
+          <AssociationSet Name="GalleryGalleryPhoto1" Association="Model.Cover">
+            <End Role="Gallery" EntitySet="Galleries" />
+            <End Role="GalleryPhoto" EntitySet="GalleryPhotoes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="DateTime" Name="StartDate" Nullable="false" />
+          <Property Type="DateTime" Name="EndDate" Nullable="false" />
+          <Property Type="String" Name="Status" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" />
+          <NavigationProperty Name="Galleries" Relationship="Model.ProjectGallery" FromRole="Project" ToRole="Gallery" />
+          <Property Type="Int32" Name="AddDate" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gallery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ProjectId" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Model.ProjectGallery" FromRole="Gallery" ToRole="Project" />
+          <NavigationProperty Name="GalleryPhotoes" Relationship="Model.GalleryGalleryPhoto" FromRole="Gallery" ToRole="GalleryPhoto" />
+          <Property Type="DateTime" Name="AddDate" Nullable="false" />
+          <NavigationProperty Name="Statistic" Relationship="Model.StatisticsGallery" FromRole="Gallery" ToRole="Statistics" />
+          <NavigationProperty Name="Cover" Relationship="Model.Cover" FromRole="Gallery" ToRole="GalleryPhoto" />
+        </EntityType>
+        <Association Name="ProjectGallery">
+          <End Type="Model.Project" Role="Project" Multiplicity="1" />
+          <End Type="Model.Gallery" Role="Gallery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Gallery">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GalleryPhoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Address" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" />
+          <NavigationProperty Name="Gallery" Relationship="Model.GalleryGalleryPhoto" FromRole="GalleryPhoto" ToRole="Gallery" />
+          <Property Type="Int32" Name="GalleryId" Nullable="false" />
+          <Property Type="DateTime" Name="AddDate" Nullable="false" />
+          <NavigationProperty Name="Gallery_1" Relationship="Model.Cover" FromRole="GalleryPhoto" ToRole="Gallery" />
+        </EntityType>
+        <Association Name="GalleryGalleryPhoto">
+          <End Type="Model.Gallery" Role="Gallery" Multiplicity="1" />
+          <End Type="Model.GalleryPhoto" Role="GalleryPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gallery">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GalleryPhoto">
+              <PropertyRef Name="GalleryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Statistics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="AboutUs" Nullable="true" />
+          <Property Type="String" Name="Theme" Nullable="true" />
+          <Property Type="String" Name="Phone" Nullable="true" />
+          <NavigationProperty Name="Galleries" Relationship="Model.StatisticsGallery" FromRole="Statistics" ToRole="Gallery" />
+          <Property Type="String" Name="Email" Nullable="true" />
+          <Property Type="String" Name="FaceBookProfile" Nullable="true" />
+          <Property Type="String" Name="GooglePlusProfile" Nullable="true" />
+          <Property Type="String" Name="LinkedInProfile" Nullable="true" />
+          <Property Type="String" Name="TwitterProfile" Nullable="true" />
+          <Property Type="String" Name="OfficeAddress" Nullable="true" />
+        </EntityType>
+        <Association Name="StatisticsGallery">
+          <End Type="Model.Statistics" Role="Statistics" Multiplicity="1" />
+          <End Type="Model.Gallery" Role="Gallery" Multiplicity="0..1" />
+        </Association>
+        <Association Name="Cover">
+          <End Type="Model.Gallery" Role="Gallery" Multiplicity="1" />
+          <End Type="Model.GalleryPhoto" Role="GalleryPhoto" Multiplicity="0..1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Project)">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Galleries">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Gallery)">
+        <MappingFragment StoreEntitySet="Galleries">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GalleryPhotoes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.GalleryPhoto)">
+        <MappingFragment StoreEntitySet="GalleryPhotoes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="GalleryId" ColumnName="GalleryId" />
+          <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Statistics">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Statistics)">
+        <MappingFragment StoreEntitySet="Statistics">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AboutUs" ColumnName="AboutUs" />
+          <ScalarProperty Name="Theme" ColumnName="Theme" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FaceBookProfile" ColumnName="FaceBookProfile" />
+          <ScalarProperty Name="GooglePlusProfile" ColumnName="GooglePlusProfile" />
+          <ScalarProperty Name="LinkedInProfile" ColumnName="LinkedInProfile" />
+          <ScalarProperty Name="TwitterProfile" ColumnName="TwitterProfile" />
+          <ScalarProperty Name="OfficeAddress" ColumnName="OfficeAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="StatisticsGallery" TypeName="Model.StatisticsGallery" StoreEntitySet="Galleries">
+      <EndProperty Name="Statistics">
+        <ScalarProperty Name="Id" ColumnName="Statistic_Id" />
+      </EndProperty>
+      <EndProperty Name="Gallery">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GalleryGalleryPhoto1" TypeName="Model.Cover" StoreEntitySet="GalleryPhotoes">
+      <EndProperty Name="Gallery">
+        <ScalarProperty Name="Id" ColumnName="Gallery_1_Id" />
+      </EndProperty>
+      <EndProperty Name="GalleryPhoto">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="Model" >
+        <EntityTypeShape EntityType="Model.Project" Width="1.5" PointX="3.125" PointY="0.5" Height="2.5571907552083331" />
+        <EntityTypeShape EntityType="Model.Gallery" Width="1.5" PointX="6.375" PointY="1.875" Height="2.1725878906249996" />
+        <AssociationConnector Association="Model.ProjectGallery">
+          <ConnectorPoint PointX="4.625" PointY="2.4660953776041663" />
+          <ConnectorPoint PointX="6.375" PointY="2.4660953776041663" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.GalleryPhoto" Width="1.5" PointX="8.625" PointY="3.5" Height="2.1725878906249996" />
+        <AssociationConnector Association="Model.GalleryGalleryPhoto">
+          <ConnectorPoint PointX="7.875" PointY="3.7737939453125" />
+          <ConnectorPoint PointX="8.625" PointY="3.7737939453125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.Statistics" Width="1.5" PointX="3.25" PointY="3.375" Height="3.1340950520833317" />
+        <AssociationConnector Association="Model.StatisticsGallery">
+          <ConnectorPoint PointX="4.75" PointY="3.7112939453125" />
+          <ConnectorPoint PointX="6.375" PointY="3.7112939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.Cover">
+          <ConnectorPoint PointX="7.875" PointY="3.6723215738932291" />
+          <ConnectorPoint PointX="8.625" PointY="3.6723215738932291" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
